@@ -18,6 +18,8 @@ TEST_SUITE(Mmap) {
     auto alloc = MmapAllocation::AllocatePages(kPages);
     ASSERT_EQ(alloc.Size(), page_size * kPages);
 
+    ASSERT_EQ(alloc.PageCount(), kPages);
+
     for (size_t i = 0; i < kPages; ++i) {
       *(alloc.Start() + i * page_size) = '!';
     }

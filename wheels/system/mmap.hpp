@@ -37,6 +37,10 @@ class MmapAllocation : public NonCopyable {
     return size_;
   }
 
+  size_t PageCount() const {
+    return Size() / PageSize();
+  }
+
   ConstMemView View() const {
     return {start_, size_};
   }
