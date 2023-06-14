@@ -69,6 +69,10 @@ class IntrusiveForwardList {
 
   // O(1)
   void Append(IntrusiveForwardList<T>& that) noexcept {
+    if (that.IsEmpty()) {
+      return;
+    }
+
     if (IsEmpty()) {
       head_ = that.head_;
       tail_ = that.tail_;

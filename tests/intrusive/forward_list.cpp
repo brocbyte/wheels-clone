@@ -142,6 +142,10 @@ TEST_SUITE(IntrusiveForwardList) {
     list1.Append(empty);
     ASSERT_EQ(list1.Size(), 2);
 
+    Item third("third");
+    list1.PushBack(&third);
+
+    list1.PopFront();
     list1.PopFront();
     list1.PopFront();
   }
