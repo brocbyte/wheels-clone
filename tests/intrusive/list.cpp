@@ -185,4 +185,132 @@ TEST_SUITE(IntrusiveList) {
 
     list.PopFront();
   }
+
+  SIMPLE_TEST(Swap) {
+    {
+      IntrusiveList<Item> x{};
+      IntrusiveList<Item> y{};
+      x.Swap(y);
+
+      ASSERT_TRUE(x.IsEmpty());
+      ASSERT_TRUE(y.IsEmpty());
+    }
+
+    {
+      IntrusiveList<Item> x{};
+      IntrusiveList<Item> y{};
+
+      Item a{"a"};
+      Item b{"b"};
+      x.PushBack(&a);
+      x.PushBack(&b);
+
+      x.Swap(y);
+
+      ASSERT_TRUE(x.IsEmpty());
+
+      {
+        ASSERT_FALSE(y.IsEmpty());
+        ASSERT_EQ(y.Size(), 2);
+
+        Item* f = y.PopFront();
+        ASSERT_EQ(f->data, "a");
+        Item* s = y.PopFront();
+        ASSERT_EQ(s->data, "b");
+
+        ASSERT_TRUE(y.IsEmpty());
+      }
+    }
+
+    {
+      IntrusiveList<Item> x{};
+      IntrusiveList<Item> y{};
+
+      Item a{"a"};
+      Item b{"b"};
+      y.PushBack(&a);
+      y.PushBack(&b);
+
+      x.Swap(y);
+
+      ASSERT_TRUE(y.IsEmpty());
+
+      {
+        ASSERT_FALSE(x.IsEmpty());
+        ASSERT_EQ(x.Size(), 2);
+
+        Item* f = x.PopFront();
+        ASSERT_EQ(f->data, "a");
+        Item* s = x.PopFront();
+        ASSERT_EQ(s->data, "b");
+
+        ASSERT_TRUE(x.IsEmpty());
+      }
+    }
+
+    {
+      IntrusiveList<Item> x{};
+      IntrusiveList<Item> y{};
+
+      Item a{"a"};
+      Item b{"b"};
+      x.PushBack(&a);
+      y.PushBack(&b);
+
+      x.Swap(y);
+
+      {
+        ASSERT_EQ(x.Size(), 1);
+
+        Item* f = x.PopFront();
+        ASSERT_EQ(f->data, "b");
+
+        ASSERT_TRUE(x.IsEmpty());
+      }
+
+      {
+        ASSERT_EQ(y.Size(), 1);
+
+        Item* f = y.PopFront();
+        ASSERT_EQ(f->data, "a");
+
+        ASSERT_TRUE(y.IsEmpty());
+      }
+    }
+  }
+
+  SIMPLE_TEST(Sort) {
+    auto less = [](Item* x, Item* y) {
+      return x->data < y->data;
+    };
+
+    {
+      IntrusiveList<Item> items{};
+      items.Sort(less);
+
+      ASSERT_TRUE(items.IsEmpty());
+    }
+
+    {
+      IntrusiveList<Item> items{};
+      Item a{"a"};
+      Item b{"b"};
+      Item c{"c"};
+
+      items.PushBack(&c);
+      items.PushBack(&b);
+      items.PushBack(&a);
+
+      items.Sort(less);
+
+      {
+        Item* x = items.PopFront();
+        ASSERT_EQ(x->data, "a");
+        Item* y = items.PopFront();
+        ASSERT_EQ(y->data, "b");
+        Item* z = items.PopFront();
+        ASSERT_EQ(z->data, "c");
+      }
+    }
+  }
 }

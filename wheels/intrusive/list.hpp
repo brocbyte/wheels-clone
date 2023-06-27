@@ -151,9 +151,43 @@ class IntrusiveList {
     WHEELS_ASSERT(IsEmpty(), "List is not empty");
   }
 
-  // Linear complexity!
+  // Complexity: O(size)
   size_t Size() const {
     return std::distance(begin(), end());
+  }
+
+  // Complexity: O(1)
+  void Swap(IntrusiveList<T>& with) {
+    IntrusiveList<T> tmp;
+    tmp.Append(*this);
+    Append(with);
+    with.Append(tmp);
+  }
+
+  // Complexity: O(size)
+  template <typename Less>
+  void Sort(Less less) {
+    IntrusiveList<T> sorted{};
+
+    while (NonEmpty()) {
+      Node* candidate = head_.Next();
+      WHEELS_ASSERT(candidate != &head_, "List is empty");
+
+      Node* curr = candidate->Next();
+      while (curr != &head_) {
+        if (less(curr->AsItem(), candidate->AsItem())) {
+          candidate = curr;
+        }
+        curr = curr->Next();
+      }
+
+      WHEELS_ASSERT(candidate->IsLinked(), "Candidate unlinked");
+      candidate->Unlink();
+
+      sorted.PushBack(candidate);
+    }
+
+    Swap(sorted);
   }
 
   void UnlinkAll() {
