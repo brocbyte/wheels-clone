@@ -207,9 +207,9 @@ class IntrusiveList {
 
   // See "The Standard Librarian : Defining Iterators and Const Iterators"
 
-  template <class NodeT, class ItemT>
+  template <bool Next, class NodeT, class ItemT>
   class IteratorImpl {
-    using Iterator = IteratorImpl<NodeT, ItemT>;
+    using Iterator = IteratorImpl<Next, NodeT, ItemT>;
 
    public:
     using value_type = ItemT;                             // NOLINT
@@ -219,12 +219,21 @@ class IntrusiveList {
     using iterator_category = std::forward_iterator_tag;  // NOLINT
 
    public:
-    IteratorImpl(NodeT* start, NodeT* end) : current_(start), end_(end) {
+    IteratorImpl(NodeT* start) : current_(start) {
     }
 
     // prefix increment
     Iterator& operator++() {
-      current_ = current_->next_;
+      if constexpr (Next) {
+        current_ = current_->next_;
+      } else {
+        current_ = current_->prev_;
+      }
+      return *this;
+    }
+
+    Iterator& operator--() {
+      current_ = current_->prev_;
       return *this;
     }
 
@@ -250,26 +259,48 @@ class IntrusiveList {
 
    private:
     NodeT* current_;
-    NodeT* end_;
   };
 
-  using Iterator = IteratorImpl<Node, T>;
-  using ConstIterator = IteratorImpl<const Node, const T>;
+  // Forward iteration
+
+  using Iterator = IteratorImpl<true, Node, T>;
+  using ConstIterator = IteratorImpl<true, const Node, const T>;
 
   Iterator begin() {  // NOLINT
-    return Iterator(head_.next_, &head_);
+    return Iterator(head_.next_);
   }
 
   Iterator end() {  // NOLINT
-    return Iterator(&head_, &head_);
+    return Iterator(&head_);
   }
 
   ConstIterator begin() const {  // NOLINT
-    return ConstIterator(head_.next_, &head_);
+    return ConstIterator(head_.next_);
   }
 
   ConstIterator end() const {  // NOLINT
-    return ConstIterator(&head_, &head_);
+    return ConstIterator(&head_);
+  }
+
+  // Reverse iterator
+
+  using ReverseIterator = IteratorImpl<false, Node, T>;
+  using ConstReverseIterator = IteratorImpl<false, const Node, const T>;
+
+  ReverseIterator rbegin() {  // NOLINT
+    return ReverseIterator(head_.prev_);
+  }
+
+  ReverseIterator rend() {  // NOLINT
+    return ReverseIterator(&head_);
+  }
+
+  ConstReverseIterator rbegin() const {  // NOLINT
+    return ConstReverseIterator(head_.prev_);
+  }
+
+  ConstReverseIterator rend() const {  // NOLINT
+    return ConstReverseIterator(&head_);
   }
 
  private:

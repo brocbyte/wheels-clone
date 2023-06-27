@@ -115,6 +115,37 @@ TEST_SUITE(IntrusiveList) {
     items.UnlinkAll();
   }
 
+  SIMPLE_TEST(ReverseIterator) {
+    IntrusiveList<Item> items;
+
+    Item a{"a"};
+    Item b{"b"};
+    Item c{"c"};
+
+    items.PushBack(&a);
+    items.PushBack(&b);
+    items.PushBack(&c);
+
+    {
+      auto iter = items.rbegin();
+
+      auto end = items.rend();
+
+      ASSERT_NE(iter, end);
+      ASSERT_EQ(iter->data, "c");
+      ++iter;
+      ASSERT_NE(iter, end);
+      ASSERT_EQ(iter->data, "b");
+      ++iter;
+      ASSERT_NE(iter, end);
+      ASSERT_EQ(iter->data, "a");
+      ++iter;
+      ASSERT_EQ(iter, end);
+    }
+
+    items.UnlinkAll();
+  }
+
   SIMPLE_TEST(AppendList) {
     Item first("hello");
     Item second("world");
