@@ -210,4 +210,45 @@ TEST_SUITE(IntrusiveForwardList) {
 
     list.PopFront();
   }
+
+  struct XTag {};
+  struct YTag {};
+  struct ZTag {};
+
+  struct TaggedItem
+      : IntrusiveForwardListNode<TaggedItem, XTag>,
+        IntrusiveForwardListNode<TaggedItem, YTag> {
+    int data;
+
+    TaggedItem(int d) : data(d) {
+    }
+  };
+
+  SIMPLE_TEST(Tags) {
+    IntrusiveForwardList<TaggedItem, XTag> x;
+    IntrusiveForwardList<TaggedItem, YTag> y;
+
+    IntrusiveForwardList<TaggedItem, ZTag> z;
+
+    TaggedItem item{11};
+
+    x.PushBack(&item);
+    y.PushBack(&item);
+
+    ASSERT_TRUE(x.NonEmpty());
+    ASSERT_TRUE(y.NonEmpty());
+
+    {
+      TaggedItem* i = x.PopFront();
+      ASSERT_EQ(i->data, 11);
+    }
+
+    {
+      ASSERT_TRUE(y.NonEmpty());
+      TaggedItem* i = y.PopFront();
+      ASSERT_EQ(i->data, 11);
+    }
+
+    // z.PushBack(&item);  // Does not compile
+  }
 }

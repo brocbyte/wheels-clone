@@ -8,12 +8,14 @@
 
 namespace wheels {
 
+struct IntrusiveListDefaultTag {};
+
 // Introduction to intrusive containers:
 // https://www.boost.org/doc/libs/1_67_0/doc/html/intrusive/intrusive_vs_nontrusive.html
 
 // Represents node of circular doubly-linked list
 
-template <typename T>
+template <typename T, typename Tag = IntrusiveListDefaultTag>
 struct IntrusiveListNode {
   using Node = IntrusiveListNode;
 
@@ -64,9 +66,9 @@ struct IntrusiveListNode {
 
 // Implemented as circular doubly-linked list with sentinel node
 
-template <typename T>
+template <typename T, typename Tag = IntrusiveListDefaultTag>
 class IntrusiveList {
-  using Node = IntrusiveListNode<T>;
+  using Node = IntrusiveListNode<T, Tag>;
 
  public:
   void PushBack(Node* node) noexcept {

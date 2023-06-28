@@ -4,7 +4,9 @@
 
 namespace wheels {
 
-template <typename T>
+struct IntrusiveForwardListNodeDefaultTag {};
+
+template <typename T, typename Tag = IntrusiveForwardListNodeDefaultTag>
 struct IntrusiveForwardListNode {
   // Shortcut
   using Node = IntrusiveForwardListNode;
@@ -32,10 +34,10 @@ struct IntrusiveForwardListNode {
   }
 };
 
-template <typename T>
+template <typename T, typename Tag = IntrusiveForwardListNodeDefaultTag>
 class IntrusiveForwardList {
   // Node type
-  using Node = IntrusiveForwardListNode<T>;
+  using Node = IntrusiveForwardListNode<T, Tag>;
 
  public:
   IntrusiveForwardList() = default;

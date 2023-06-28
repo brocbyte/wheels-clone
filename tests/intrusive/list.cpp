@@ -285,6 +285,7 @@ TEST_SUITE(IntrusiveList) {
 
       Item a{"a"};
       Item b{"b"};
+
       x.PushBack(&a);
       y.PushBack(&b);
 
@@ -343,5 +344,46 @@ TEST_SUITE(IntrusiveList) {
         ASSERT_EQ(z->data, "c");
       }
     }
+  }
+
+  struct XTag {};
+  struct YTag {};
+  struct ZTag {};
+
+  struct TaggedItem
+      : IntrusiveListNode<TaggedItem, XTag>,
+        IntrusiveListNode<TaggedItem, YTag> {
+    int data;
+
+    TaggedItem(int d) : data(d) {
+    }
+  };
+
+  SIMPLE_TEST(Tags) {
+    IntrusiveList<TaggedItem, XTag> x;
+    IntrusiveList<TaggedItem, YTag> y;
+
+    IntrusiveList<TaggedItem, ZTag> z;
+
+    TaggedItem item{11};
+
+    x.PushBack(&item);
+    y.PushBack(&item);
+
+    ASSERT_TRUE(x.NonEmpty());
+    ASSERT_TRUE(y.NonEmpty());
+
+    {
+      TaggedItem* i = x.PopFront();
+      ASSERT_EQ(i->data, 11);
+    }
+
+    {
+      ASSERT_TRUE(y.NonEmpty());
+      TaggedItem* i = y.PopFront();
+      ASSERT_EQ(i->data, 11);
+    }
+
+    // z.PushBack(&item);  // Does not compile
   }
 }
