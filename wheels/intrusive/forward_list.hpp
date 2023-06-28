@@ -39,22 +39,24 @@ class IntrusiveForwardList {
   // Node type
   using Node = IntrusiveForwardListNode<T, Tag>;
 
+  using List = IntrusiveForwardList<T, Tag>;
+
  public:
   IntrusiveForwardList() = default;
 
   // Non-copyable
-  IntrusiveForwardList(const IntrusiveForwardList&) = delete;
-  IntrusiveForwardList& operator=(const IntrusiveForwardList&) = delete;
+  IntrusiveForwardList(const List&) = delete;
+  IntrusiveForwardList& operator=(const List&) = delete;
 
   // Move-constructable
-  IntrusiveForwardList(IntrusiveForwardList&& that) {
+  IntrusiveForwardList(List&& that) {
     head_ = that.head_;
     tail_ = that.tail_;
     size_ = that.size_;
     that.Reset();
   }
 
-  IntrusiveForwardList& operator=(IntrusiveForwardList&& that) = delete;
+  IntrusiveForwardList& operator=(List&& that) = delete;
 
   void PushBack(Node* node) noexcept {
     ++size_;
@@ -70,7 +72,7 @@ class IntrusiveForwardList {
   }
 
   // O(1)
-  void Append(IntrusiveForwardList<T>& that) noexcept {
+  void Append(List& that) noexcept {
     if (that.IsEmpty()) {
       return;
     }

@@ -70,6 +70,8 @@ template <typename T, typename Tag = IntrusiveListDefaultTag>
 class IntrusiveList {
   using Node = IntrusiveListNode<T, Tag>;
 
+  using List = IntrusiveList<T, Tag>;
+
  public:
   void PushBack(Node* node) noexcept {
     node->LinkBefore(&head_);
@@ -101,7 +103,7 @@ class IntrusiveList {
 
   // Append (= move, re-link) all nodes from `that` list to the end of this list
   // Post-condition: that.IsEmpty() == true
-  void Append(IntrusiveList& that) noexcept {
+  void Append(List& that) noexcept {
     if (that.IsEmpty()) {
       return;
     }
@@ -136,18 +138,18 @@ class IntrusiveList {
     InitEmpty();
   }
 
-  IntrusiveList(IntrusiveList&& that) {
+  IntrusiveList(List&& that) {
     InitEmpty();
     Append(that);
   }
 
   // Intentionally disabled
   // Be explicit: use UnlinkAll + Append
-  IntrusiveList& operator=(IntrusiveList&& that) = delete;
+  IntrusiveList& operator=(List&& that) = delete;
 
   // Non-copyable
-  IntrusiveList(const IntrusiveList& that) = delete;
-  IntrusiveList& operator=(const IntrusiveList& that) = delete;
+  IntrusiveList(const List& that) = delete;
+  IntrusiveList& operator=(const List& that) = delete;
 
   ~IntrusiveList() {
     WHEELS_ASSERT(IsEmpty(), "List is not empty");
@@ -159,8 +161,8 @@ class IntrusiveList {
   }
 
   // Complexity: O(1)
-  void Swap(IntrusiveList<T>& with) {
-    IntrusiveList<T> tmp;
+  void Swap(List& with) {
+    List tmp;
     tmp.Append(*this);
     Append(with);
     with.Append(tmp);
@@ -169,7 +171,7 @@ class IntrusiveList {
   // Complexity: O(size)
   template <typename Less>
   void Sort(Less less) {
-    IntrusiveList<T> sorted{};
+    List sorted{};
 
     while (NonEmpty()) {
       Node* candidate = head_.Next();
