@@ -223,7 +223,7 @@ class IntrusiveList {
    public:
     using value_type = ItemT;                             // NOLINT
     using pointer = value_type*;                          // NOLINT
-    using reference = value_type&;                        // NOLINT
+    using reference = value_type*;                        // NOLINT
     using difference_type = ptrdiff_t;                    // NOLINT
     using iterator_category = std::forward_iterator_tag;  // NOLINT
 
@@ -254,8 +254,8 @@ class IntrusiveList {
       return !(*this == that);
     }
 
-    ItemT& operator*() const {
-      return *Item();
+    ItemT* operator*() const {
+      return Item();
     }
 
     ItemT* operator->() const {

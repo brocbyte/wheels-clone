@@ -83,7 +83,7 @@ TEST_SUITE(IntrusiveList) {
     auto end = items.end();
 
     ASSERT_NE(iterator, end);
-    ASSERT_EQ((*iterator).data, "hello");
+    ASSERT_EQ((*iterator)->data, "hello");
 
     ++iterator;
     ASSERT_NE(iterator, end);
@@ -106,8 +106,8 @@ TEST_SUITE(IntrusiveList) {
     items.PushBack(&third);
 
     wheels::StringBuilder builder;
-    for (auto&& item : items) {
-      builder << item.data << " ";
+    for (Item* item : items) {
+      builder << item->data << " ";
     }
     std::string message = builder;
     ASSERT_EQ(message, "hello world ! ");
