@@ -386,4 +386,24 @@ TEST_SUITE(IntrusiveList) {
 
     // z.PushBack(&item);  // Does not compile
   }
+
+  SIMPLE_TEST(UnlinkTagged) {
+    using XList = IntrusiveList<TaggedItem, XTag>;
+    using YList = IntrusiveList<TaggedItem, YTag>;
+
+    XList x;
+    YList y;
+
+    TaggedItem item{3};
+
+    x.PushBack(&item);
+    y.PushBack(&item);
+
+    // Static
+    XList::Unlink(&item);
+
+    ASSERT_TRUE(y.NonEmpty());
+
+    y.Unlink(&item);
+  }
 }

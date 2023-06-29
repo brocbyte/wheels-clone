@@ -207,6 +207,11 @@ class IntrusiveList {
     UnlinkAll();
   }
 
+  // Unlinked tagged node
+  static void Unlink(Node* node) {
+    node->Unlink();
+  }
+
   // Iteration
 
   // See "The Standard Librarian : Defining Iterators and Const Iterators"
