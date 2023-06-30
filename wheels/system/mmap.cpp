@@ -27,10 +27,10 @@ size_t MmapAllocation::PageSize() {
   return wheels::PageSize();
 }
 
-MmapAllocation MmapAllocation::AllocatePages(size_t count) {
+MmapAllocation MmapAllocation::AllocatePages(size_t count, void* hint) {
   size_t size = PagesToBytes(count);
 
-  void* start = mmap(/*addr=*/nullptr, /*length=*/size,
+  void* start = mmap(/*addr=*/hint, /*length=*/size,
                      /*prot=*/PROT_READ | PROT_WRITE,
                      /*flags=*/MAP_PRIVATE | MAP_ANONYMOUS,
                      /*fd=*/-1, /*offset=*/0);
