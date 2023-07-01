@@ -7,7 +7,7 @@ namespace wheels {
 
 static std::mutex mutex;
 
-void Panic(const std::string& error, SourceLocation where) {
+void Panic(std::string_view error, SourceLocation where) {
   {
     std::lock_guard guard(mutex);
     std::cerr << "Panicked at " << where << ": " << error << std::endl;
