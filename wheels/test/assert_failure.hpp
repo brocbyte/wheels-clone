@@ -49,4 +49,4 @@ std::ostream& operator<<(std::ostream& out, const AssertionFailure& failure);
 
 // Used by test macros (ASSERT_TRUE etc)
 #define ASSERTION_FAILURE(cond) \
-  ::wheels::test::AssertionFailure(TO_STRING(cond), WHEELS_HERE)
+  ::wheels::test::AssertionFailure(WHEELS_TO_STRING(cond), WHEELS_HERE)
