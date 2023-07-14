@@ -17,6 +17,10 @@
 #include <iostream>
 #include <mutex>
 
+#ifndef __has_feature
+#define __has_feature(x) 0
+#endif
+
 namespace wheels::test {
 
 //////////////////////////////////////////////////////////////////////

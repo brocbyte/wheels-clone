@@ -1,5 +1,9 @@
 #include <wheels/test/support/sanitizers.hpp>
 
+#ifndef __has_feature
+#define __has_feature(x) 0
+#endif
+
 namespace wheels {
 
 int GetSanitizerSlowdown() {
