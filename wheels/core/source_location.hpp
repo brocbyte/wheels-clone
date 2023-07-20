@@ -1,8 +1,6 @@
 #pragma once
 
 #include <ostream>
-#include <string>
-#include <string_view>
 
 namespace wheels {
 
@@ -12,7 +10,7 @@ class SourceLocation {
  public:
   SourceLocation() = default;
 
-  SourceLocation(std::string_view file, std::string_view function, int line)
+  SourceLocation(const char* file, const char* function, int line)
       : file_(file), function_(function), line_(line) {
   }
 
@@ -22,11 +20,11 @@ class SourceLocation {
     return {file, function, line};
   }
 
-  std::string_view File() const {
+  const char* File() const {
     return file_;
   }
 
-  std::string_view Function() const {
+  const char* Function() const {
     return function_;
   }
 
@@ -35,8 +33,8 @@ class SourceLocation {
   }
 
  private:
-  std::string_view file_;
-  std::string_view function_;
+  const char* file_;
+  const char* function_;
   int line_;
 };
 
