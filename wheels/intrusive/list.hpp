@@ -212,6 +212,10 @@ class IntrusiveList {
     node->Unlink();
   }
 
+  static bool IsLinked(Node* node) {
+    return node->IsLinked();
+  }
+
   // Iteration
 
   // See "The Standard Librarian : Defining Iterators and Const Iterators"
