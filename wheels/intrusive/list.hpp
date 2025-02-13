@@ -134,6 +134,51 @@ class IntrusiveList {
     return !IsEmpty();
   }
 
+  T* FrontNonEmpty() noexcept {
+    return head_.next;
+  }
+
+  const T* FrontNonEmpty() const noexcept {
+    return head_.next;
+  }
+
+  T* Front() noexcept {
+    if (IsEmpty()) {
+      return nullptr;
+    }
+    return FrontNonEmpty();
+  }
+
+  const T* Front() const noexcept {
+    if (IsEmpty()) {
+      return nullptr;
+    }
+    return FrontNonEmpty();
+  }
+
+
+  T* BackNonEmpty() noexcept {
+    return head_.prev_;
+  }
+
+  const T* BackNonEmpty() const noexcept {
+    return head_.prev_;
+  }
+
+  T* Back() noexcept {
+    if (IsEmpty()) {
+      return nullptr;
+    }
+    return BackNonEmpty();
+  }
+
+  const T* Back() const noexcept {
+    if (IsEmpty()) {
+      return nullptr;
+    }
+    return BackNonEmpty();
+  }
+
   IntrusiveList() {
     InitEmpty();
   }
