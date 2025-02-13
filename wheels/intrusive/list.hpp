@@ -135,11 +135,11 @@ class IntrusiveList {
   }
 
   T* FrontNonEmpty() noexcept {
-    return head_.next;
+    return (head_.next_)->AsItem();
   }
 
   const T* FrontNonEmpty() const noexcept {
-    return head_.next;
+    return (head_.next_)->AsItem();
   }
 
   T* Front() noexcept {
@@ -158,11 +158,11 @@ class IntrusiveList {
 
 
   T* BackNonEmpty() noexcept {
-    return head_.prev_;
+    return (head_.prev_)->AsItem();
   }
 
   const T* BackNonEmpty() const noexcept {
-    return head_.prev_;
+    return (head_.prev_)->AsItem();
   }
 
   T* Back() noexcept {

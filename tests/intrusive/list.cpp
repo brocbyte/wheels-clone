@@ -49,10 +49,40 @@ TEST_SUITE(IntrusiveList) {
     Item c("c");
     Item d("d");
 
+    ASSERT_EQ(items.Front(), nullptr);
+    ASSERT_EQ(items.Back(), nullptr);
+
     items.PushBack(&a);
+
+    ASSERT_EQ(items.Front(), &a);
+    ASSERT_EQ(items.Back(), &a);
+
+    ASSERT_EQ(items.FrontNonEmpty(), &a);
+    ASSERT_EQ(items.BackNonEmpty(), &a);
+
     items.PushFront(&b);
+
+    ASSERT_EQ(items.Front(), &b);
+    ASSERT_EQ(items.Back(), &a);
+
+    ASSERT_EQ(items.FrontNonEmpty(), &b);
+    ASSERT_EQ(items.BackNonEmpty(), &a);
+
     items.PushBack(&c);
+
+    ASSERT_EQ(items.Front(), &b);
+    ASSERT_EQ(items.Back(), &c);
+
+    ASSERT_EQ(items.FrontNonEmpty(), &b);
+    ASSERT_EQ(items.BackNonEmpty(), &c);
+
     items.PushFront(&d);
+
+    ASSERT_EQ(items.Front(), &d);
+    ASSERT_EQ(items.Back(), &c);
+
+    ASSERT_EQ(items.FrontNonEmpty(), &d);
+    ASSERT_EQ(items.BackNonEmpty(), &c);
 
     Item* item;
 
