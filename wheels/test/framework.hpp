@@ -39,16 +39,29 @@ void FailTestByException();
 
 #define ASSERT_FALSE_M(cond, message) ASSERT_TRUE_M(!(cond), message)
 
-#define ASSERT_EQ(x, y) ASSERT_TRUE((x) == (y))
-#define ASSERT_NE(x, y) ASSERT_TRUE((x) != (y))
+#define _CMP(x, y, op) (x) op (y)
+
+#define _ASSERT_CMP(xe, ye, op)                                                           \
+  do {                                                                                    \
+    auto xv = (xe);                                                                       \
+    decltype(xv) yv = (ye);                                                               \
+    if (!(xv op yv)) {                                                                    \
+      ::wheels::test::FailTestByAssert(                                                   \
+          ASSERTION_FAILURE(_CMP(xe, ye, op)) << "lhs = " << xv << ", rhs = " << yv);     \
+    }                                                                                     \
+  } while (false)
+
+
+#define ASSERT_EQ(x, y) _ASSERT_CMP(x, y, ==)
+#define ASSERT_NE(x, y) _ASSERT_CMP(x, y, !=)
 
 // Strict
-#define ASSERT_GT(x, y) ASSERT_TRUE((x) > (y))
-#define ASSERT_LT(x, y) ASSERT_TRUE((x) < (y))
+#define ASSERT_GT(x, y) _ASSERT_CMP(x, y, >)
+#define ASSERT_LT(x, y) _ASSERT_CMP(x, y, <)
 
 // Non-strict
-#define ASSERT_GE(x, y) ASSERT_TRUE((x) >= (y))
-#define ASSERT_LE(x, y) ASSERT_TRUE((x) <= (y))
+#define ASSERT_GE(x, y) _ASSERT_CMP(x, y, >=)
+#define ASSERT_LE(x, y) _ASSERT_CMP(x, y, <=)
 
 #define ASSERT_THROW(expr, exception)                                        \
   try {                                                                      \

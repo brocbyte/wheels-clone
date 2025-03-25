@@ -103,7 +103,7 @@ TEST_SUITE(IntrusiveList) {
 
     IntrusiveList<Item> items;
 
-    ASSERT_EQ(items.begin(), items.end());
+    ASSERT_TRUE(items.begin() == items.end());
 
     items.PushBack(&first);
     items.PushBack(&second);
@@ -112,15 +112,15 @@ TEST_SUITE(IntrusiveList) {
     auto iterator = items.begin();
     auto end = items.end();
 
-    ASSERT_NE(iterator, end);
+    ASSERT_TRUE(iterator != end);
     ASSERT_EQ((*iterator)->data, "hello");
 
     ++iterator;
-    ASSERT_NE(iterator, end);
+    ASSERT_TRUE(iterator != end);
 
     ++iterator;
     ++iterator;
-    ASSERT_EQ(iterator, end);
+    ASSERT_TRUE(iterator == end);
 
     items.UnlinkAll();
   }
@@ -161,16 +161,16 @@ TEST_SUITE(IntrusiveList) {
 
       auto end = items.rend();
 
-      ASSERT_NE(iter, end);
+      ASSERT_TRUE(iter != end);
       ASSERT_EQ(iter->data, "c");
       ++iter;
-      ASSERT_NE(iter, end);
+      ASSERT_TRUE(iter != end);
       ASSERT_EQ(iter->data, "b");
       ++iter;
-      ASSERT_NE(iter, end);
+      ASSERT_TRUE(iter != end);
       ASSERT_EQ(iter->data, "a");
       ++iter;
-      ASSERT_EQ(iter, end);
+      ASSERT_TRUE(iter == end);
     }
 
     items.UnlinkAll();
@@ -183,7 +183,7 @@ TEST_SUITE(IntrusiveList) {
 
     IntrusiveList<Item> items;
 
-    ASSERT_EQ(items.begin(), items.end());
+    ASSERT_TRUE(items.begin() == items.end());
 
     items.PushBack(&first);
     items.PushBack(&second);
@@ -216,7 +216,7 @@ TEST_SUITE(IntrusiveList) {
 
     IntrusiveList<Item> items;
 
-    ASSERT_EQ(items.begin(), items.end());
+    ASSERT_TRUE(items.begin() == items.end());
 
     items.PushBack(&first);
     items.PushBack(&second);

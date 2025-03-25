@@ -29,7 +29,7 @@ TEST_SUITE(Mmap) {
     auto alloc = MmapAllocation::AllocatePages(3);
     auto view = alloc.View();
 
-    ASSERT_EQ(alloc.Start(), view.Data());
+    ASSERT_TRUE(alloc.Start() == view.Data());
     ASSERT_EQ(alloc.Size(), view.Size());
   }
 
