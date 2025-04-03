@@ -2,10 +2,9 @@
 #include <wheels/test/fail_handler.hpp>
 #include <wheels/test/util/cpu_time_budget.hpp>
 
-#include <wheels/system/quick_exit.hpp>
-
 #include <wheels/core/stop_watch.hpp>
 
+#include <cstdlib>
 #include <thread>
 
 using namespace std::chrono_literals;
@@ -97,7 +96,7 @@ TEST_SUITE(TestFramework) {
   }
 
   TEST(ForceFork, wheels::test::TestOptions().ForceFork()) {
-    wheels::QuickExit(0);
+    std::exit(0);
   }
 
   TEST(CpuTimeBudget, wheels::test::TestOptions().TimeLimit(1s)) {

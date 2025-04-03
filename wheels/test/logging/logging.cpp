@@ -1,6 +1,6 @@
-#include <wheels/logging/logging.hpp>
+#include "logging.hpp"
 
-#include <wheels/support/leaks.hpp>
+#include <wheels/test/support/leaks.hpp>
 
 #include <atomic>
 #include <chrono>

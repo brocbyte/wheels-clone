@@ -2,6 +2,7 @@
 
 #include <wheels/test/console_reporter.hpp>
 
+#include <wheels/test/logging.hpp>
 #include <wheels/test/here.hpp>
 #include <wheels/test/fork.hpp>
 
@@ -10,8 +11,6 @@
 #include <wheels/core/assert.hpp>
 #include <wheels/core/exception.hpp>
 #include <wheels/core/stop_watch.hpp>
-
-#include <wheels/logging/logging.hpp>
 
 #include <cassert>
 #include <iostream>
