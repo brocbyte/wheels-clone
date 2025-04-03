@@ -19,6 +19,10 @@ const T& PickRandom(const std::vector<T>& items) {
   return items[RandomIndex(items.size())];
 }
 
+std::string_view PickEmoji(const std::vector<std::string_view>& candidates) {
+  return PickRandom(candidates);
+}
+
 }  // namespace
 
 std::string_view GetSuccessEmoji() {
@@ -29,7 +33,7 @@ std::string_view GetSuccessEmoji() {
       "~(˘▾˘~)",
   };
 
-  return PickRandom(kCandidates);
+  return PickEmoji(kCandidates);
 }
 
 std::string_view GetFailEmoji() {
@@ -40,7 +44,7 @@ std::string_view GetFailEmoji() {
       "ヽ(｀⌒´)ﾉ",
   };
 
-  return PickRandom(kCandidates);
+  return PickEmoji(kCandidates);
 }
 
 }  // namespace wheels::test
