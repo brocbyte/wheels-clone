@@ -1,6 +1,6 @@
 #include <wheels/test/runtime.hpp>
 
-#include <wheels/test/console_reporter.hpp>
+#include <wheels/test/reporter/console.hpp>
 
 #include <wheels/test/logging.hpp>
 #include <wheels/test/here.hpp>

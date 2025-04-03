@@ -1,4 +1,4 @@
-#include <wheels/test/console_reporter.hpp>
+#include "console.hpp"
 
 #include <wheels/test/emoji.hpp>
 #include <wheels/test/helpers.hpp>
