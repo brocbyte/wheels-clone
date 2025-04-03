@@ -1,6 +1,7 @@
 #include "console.hpp"
 
-#include <wheels/test/emoji.hpp>
+#include "emoji.hpp"
+
 #include <wheels/test/helpers.hpp>
 
 #include <wheels/test/support/terminal.hpp>
