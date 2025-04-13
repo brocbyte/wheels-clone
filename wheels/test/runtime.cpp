@@ -3,8 +3,9 @@
 #include <wheels/test/reporter/console.hpp>
 
 #include <wheels/test/logging.hpp>
-#include <wheels/test/here.hpp>
-#include <wheels/test/fork.hpp>
+
+#include <wheels/test/run/here.hpp>
+#include <wheels/test/run/fork.hpp>
 
 #include <wheels/test/support/sanitizers.hpp>
 
