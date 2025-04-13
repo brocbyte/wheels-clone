@@ -2,7 +2,7 @@
 
 #include <wheels/core/assert.hpp>
 
-#include <wheels/core/string_utils.hpp>
+#include <wheels/test/support/string_utils.hpp>
 
 #include <string>
 #include <any>
