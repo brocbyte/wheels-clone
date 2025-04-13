@@ -1,4 +1,5 @@
 #include <wheels/test/framework.hpp>
+#include <wheels/test/logging.hpp>
 #include <wheels/test/fail_handler.hpp>
 #include <wheels/test/util/cpu_time_budget.hpp>
 
@@ -29,6 +30,10 @@ static Registrar registrar;
 TEST_SUITE(TestFramework) {
   void ThrowRuntimeError() {
     throw std::runtime_error("error!");
+  }
+
+  SIMPLE_TEST(Logging) {
+    TEST_LOG("Hello");
   }
 
   SIMPLE_TEST(Asserts) {
