@@ -5,7 +5,7 @@
 
 // Simple asynchronous logging
 
-namespace wheels {
+namespace wheels::test {
 
 //////////////////////////////////////////////////////////////////////
 
@@ -27,4 +27,4 @@ void FlushPendingLogMessages();
 
 void LogMessageSimple(std::string message);
 
-}  // namespace wheels
+}  // namespace wheels::test

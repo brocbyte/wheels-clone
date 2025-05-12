@@ -2,11 +2,11 @@
 
 #include "logging/logging.hpp"
 
-#define LOG_PRIVATE(level, expr)                                          \
+#define TEST_LOG_PRIVATE(level, expr)                                          \
   do {                                                                  \
-    if (wheels::LevelAccepted(level)) {                                 \
-      wheels::LogMessage(WHEELS_HERE, wheels::StringBuilder() << expr); \
+    if (::wheels::test::LevelAccepted(level)) {                                 \
+      ::wheels::test::LogMessage(WHEELS_HERE, wheels::StringBuilder() << expr); \
     }                                                                   \
   } while (false)
 
-#define TEST_LOG(expr) LOG_PRIVATE(wheels::LogLevel::Debug, expr)
+#define TEST_LOG(expr) TEST_LOG_PRIVATE(::wheels::test::LogLevel::Debug, expr)

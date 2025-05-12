@@ -11,7 +11,7 @@
 
 #include <pthread.h>
 
-namespace wheels {
+namespace wheels::test {
 
 //////////////////////////////////////////////////////////////////////
 
@@ -282,4 +282,4 @@ void RestartLoggerInChildAfterFork() {
   GetLogger()->Start();
 }
 
-}  // namespace wheels
+}  // namespace wheels::test

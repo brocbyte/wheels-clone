@@ -35,7 +35,7 @@ Runtime& Runtime::Access() {
 class AbortOnFailHandler : public ITestFailHandler {
  public:
   void Fail(const ITest& test, const std::string& error) override {
-    wheels::FlushPendingLogMessages();
+    FlushPendingLogMessages();
     Runtime::Access().Reporter().TestFailed(test, error);
     std::abort();
   }
