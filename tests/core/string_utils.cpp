@@ -1,4 +1,4 @@
-#include <wheels/core/string_utils.hpp>
+#include <wheels/test/support/string_utils.hpp>
 
 #include <wheels/test/framework.hpp>
 
