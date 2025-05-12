@@ -6,6 +6,8 @@
 #include <wheels/test/reporter.hpp>
 #include <wheels/test/test_options.hpp>
 
+#include <utility>
+
 namespace wheels::test {
 
 class Runtime {
@@ -22,8 +24,8 @@ class Runtime {
     return tests_;
   }
 
-  void InstallFailHandler(ITestFailHandler& handler) {
-    fail_handler_ = &handler;
+  ITestFailHandler& InstallFailHandler(ITestFailHandler& handler) {
+    return *std::exchange(fail_handler_, &handler);
   }
 
   ITestFailHandler& FailHandler() {
