@@ -10,7 +10,7 @@ include(FetchContent)
 
 FetchContent_Declare(gflags
         GIT_REPOSITORY	https://github.com/gflags/gflags.git
-        GIT_TAG			master
+        GIT_TAG		main
 )
 
 FetchContent_MakeAvailable(gflags)
